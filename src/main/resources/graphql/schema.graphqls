@@ -1,0 +1,361 @@
+# Tipe Buku
+"""
+Merepresentasikan sebuah buku dalam sistem perpustakaan.
+"""
+type Buku {
+    """
+    ID unik untuk buku.
+    """
+    id: String!
+    """
+    Judul buku.
+    """
+    judul: String!
+    """
+    Penulis buku.
+    """
+    penulis: String!
+    """
+    Tahun terbit buku.
+    """
+    tahun_terbit: Int!
+    """
+    Deskripsi buku.
+    """
+    deskripsi: String!
+    """
+    Jumlah salinan buku yang tersedia.
+    """
+    jumlah: Int!
+}
+
+# Tipe Loker
+"""
+Merepresentasikan loker dalam sistem perpustakaan.
+"""
+type Loker {
+    """
+    ID unik untuk loker.
+    """
+    id: String!
+    """
+    Nomor loker.
+    """
+    noLoker: Int!
+}
+
+# Tipe Mahasiswa
+"""
+Merepresentasikan data mahasiswa dalam sistem perpustakaan.
+"""
+type Mahasiswa {
+    """
+    Nomor Induk Mahasiswa (NIM).
+    """
+    nim: String!
+    """
+    Nama mahasiswa.
+    """
+    nama: String!
+    """
+    Alamat email mahasiswa.
+    """
+    email: String!
+    """
+    Alamat tempat tinggal mahasiswa.
+    """
+    alamat: String!
+    """
+    Nomor telepon mahasiswa.
+    """
+    noHp: String!
+}
+
+# Tipe Pegawai
+"""
+Merepresentasikan data pegawai dalam sistem perpustakaan.
+"""
+type Pegawai {
+    """
+    Nomor Induk Pegawai (NIP).
+    """
+    nip: String!
+    """
+    Nama pegawai.
+    """
+    nama: String!
+    """
+    Alamat email pegawai.
+    """
+    email: String!
+    """
+    Alamat tempat tinggal pegawai.
+    """
+    alamat: String!
+    """
+    Nomor telepon pegawai.
+    """
+    noHp: String!
+}
+
+# Tipe Peminjaman Buku
+"""
+Merepresentasikan transaksi peminjaman buku dalam sistem perpustakaan.
+"""
+type PeminjamanBuku {
+    """
+    ID unik untuk transaksi peminjaman buku.
+    """
+    id: ID!
+    """
+    Mahasiswa yang meminjam buku.
+    """
+    mahasiswa: Mahasiswa!
+    """
+    Daftar buku yang dipinjam.
+    """
+    buku: [Buku!]!
+    """
+    Tanggal peminjaman buku.
+    """
+    tglPinjam: String!
+    """
+    Tanggal pengembalian buku.
+    """
+    tglKembali: String
+    """
+    Status peminjaman (misalnya: 'dipinjam', 'dikembalikan').
+    """
+    statusPeminjaman: String!
+    """
+    Jumlah hari keterlambatan (jika ada).
+    """
+    terlambat: Int
+}
+
+# Tipe Peminjaman Loker
+"""
+Merepresentasikan transaksi peminjaman loker dalam sistem perpustakaan.
+"""
+type PeminjamanLoker {
+    """
+    ID unik untuk transaksi peminjaman loker.
+    """
+    id: ID!
+    """
+    Mahasiswa yang meminjam loker.
+    """
+    mahasiswa: Mahasiswa!
+    """
+    Loker yang dipinjam.
+    """
+    loker: Loker!
+    """
+    Tanggal peminjaman loker.
+    """
+    tglPinjam: String!
+    """
+    Tanggal pengembalian loker.
+    """
+    tglKembali: String
+    """
+    Status peminjaman (misalnya: 'dipinjam', 'dikembalikan').
+    """
+    statusPeminjaman: String!
+    """
+    Jumlah hari keterlambatan (jika ada).
+    """
+    terlambat: Int
+}
+
+# Query untuk mendapatkan data
+"""
+Root query untuk mengambil data dalam sistem perpustakaan.
+"""
+type Query {
+    """
+    Mendapatkan detail buku berdasarkan ID.
+    """
+    getBukuById(id: String!): Buku
+
+    """
+    Mendapatkan semua buku dalam sistem perpustakaan.
+    """
+    getAllBuku: [Buku!]!
+
+    """
+    Mendapatkan daftar buku berdasarkan nama penulis.
+    """
+    getBukuByPenulis(penulis: String!): [Buku!]!
+
+    """
+    Mendapatkan daftar buku berdasarkan judul.
+    """
+    getBukuByJudul(judul: String!): [Buku!]!
+
+    """
+    Mendapatkan detail loker berdasarkan ID.
+    """
+    getLokerById(id: String!): Loker
+
+    """
+    Mendapatkan semua loker dalam sistem perpustakaan.
+    """
+    getAllLokers: [Loker!]!
+
+    """
+    Mendapatkan detail mahasiswa berdasarkan NIM.
+    """
+    getMahasiswaByNim(nim: String!): Mahasiswa
+
+    """
+    Mendapatkan daftar mahasiswa berdasarkan nama.
+    """
+    getMahasiswaByNama(nama: String!): [Mahasiswa!]!
+
+    """
+    Mendapatkan semua data mahasiswa dalam sistem perpustakaan.
+    """
+    getAllMahasiswas: [Mahasiswa!]!
+
+    """
+    Mendapatkan detail pegawai berdasarkan NIP.
+    """
+    getPegawaiByNip(nip: String!): Pegawai
+
+    """
+    Mendapatkan daftar pegawai berdasarkan nama.
+    """
+    getPegawaiByNama(nama: String!): [Pegawai!]!
+
+    """
+    Mendapatkan semua data pegawai dalam sistem perpustakaan.
+    """
+    getAllPegawais: [Pegawai!]!
+
+    """
+    Mendapatkan semua data peminjaman buku.
+    """
+    getAllPeminjamanBuku: [PeminjamanBuku!]!
+
+    """
+    Mendapatkan daftar peminjaman buku berdasarkan ID buku.
+    """
+    getPeminjamanByIdBuku(id: String!): [PeminjamanBuku!]!
+
+    """
+    Mendapatkan daftar peminjaman buku berdasarkan NIM mahasiswa.
+    """
+    getPeminjamanByNim(nim: String!): [PeminjamanBuku!]!
+
+    """
+    Mendapatkan daftar peminjaman buku berdasarkan status peminjaman.
+    """
+    getPeminjamanByStatus(statusPeminjaman: String!): [PeminjamanBuku!]!
+
+    """
+    Mendapatkan semua data peminjaman loker.
+    """
+    getAllPeminjamanLoker: [PeminjamanLoker!]!
+
+    """
+    Mendapatkan daftar peminjaman loker berdasarkan NIM mahasiswa.
+    """
+    getPeminjamanLokerByNim(nim: String!): [PeminjamanLoker!]!
+
+    """
+    Mendapatkan daftar peminjaman loker berdasarkan ID loker.
+    """
+    getPeminjamanLokerByIdLoker(id: String!): [PeminjamanLoker!]!
+
+    """
+    Mendapatkan daftar peminjaman loker berdasarkan status peminjaman.
+    """
+    getPeminjamanLokerByStatus(statusPeminjaman: String!): [PeminjamanLoker!]!
+}
+
+# Mutasi untuk memodifikasi data
+"""
+Root mutation untuk memodifikasi data dalam sistem perpustakaan.
+"""
+type Mutation {
+    """
+    Menambahkan buku baru ke dalam sistem perpustakaan.
+    """
+    addBuku(id: String!, judul: String!, penulis: String!, tahun_terbit: Int!, deskripsi: String!, jumlah: Int!): Buku
+
+    """
+    Memperbarui informasi buku yang ada dalam sistem perpustakaan.
+    """
+    updateBuku(id: String!, judul: String, penulis: String, tahun_terbit: Int, deskripsi: String, jumlah: Int): Buku
+
+    """
+    Menghapus buku dari sistem perpustakaan berdasarkan ID.
+    """
+    deleteBuku(id: String!): Boolean
+
+    """
+    Menambahkan loker baru ke dalam sistem perpustakaan.
+    """
+    addLoker(id: String!, noLoker: Int!): Loker
+
+    """
+    Memperbarui informasi loker dalam sistem perpustakaan.
+    """
+    updateLoker(id: String!, noLoker: Int!): Loker
+
+    """
+    Menghapus loker dari sistem perpustakaan berdasarkan ID.
+    """
+    deleteLoker(id: String!): Boolean
+
+    """
+    Menambahkan data mahasiswa baru ke dalam sistem perpustakaan.
+    """
+    addMahasiswa(nim: String!, nama: String!, email: String!, alamat: String!, noHp: String!): Mahasiswa
+
+    """
+    Memperbarui informasi mahasiswa dalam sistem perpustakaan.
+    """
+    updateMahasiswa(nim: String!, nama: String, email: String, alamat: String, noHp: String): Mahasiswa
+
+    """
+    Menghapus data mahasiswa dari sistem perpustakaan berdasarkan NIM.
+    """
+    deleteMahasiswa(nim: String!): Boolean
+
+    """
+    Menambahkan data pegawai baru ke dalam sistem perpustakaan.
+    """
+    addPegawai(nip: String!, nama: String!, email: String!, alamat: String!, noHp: String!): Pegawai
+
+    """
+    Memperbarui informasi pegawai dalam sistem perpustakaan.
+    """
+    updatePegawai(nip: String!, nama: String, email: String, alamat: String, noHp: String): Pegawai
+
+    """
+    Menghapus data pegawai dari sistem perpustakaan berdasarkan NIP.
+    """
+    deletePegawai(nip: String!): Boolean
+
+    """
+    Meminjam buku berdasarkan daftar ID buku dan NIM mahasiswa.
+    """
+    borrowBook(nim: String!, idBukuList: [String!]!): PeminjamanBuku
+
+    """
+    Mengembalikan buku yang telah dipinjam berdasarkan ID transaksi.
+    """
+    returnBook(id: ID!): Boolean
+
+    """
+    Meminjam loker berdasarkan ID loker dan NIM mahasiswa.
+    """
+    borrowLocker(nim: String!, idLoker: String!): PeminjamanLoker
+
+    """
+    Mengembalikan loker yang telah dipinjam berdasarkan ID transaksi.
+    """
+    returnLocker(id: ID!): Boolean
+}
